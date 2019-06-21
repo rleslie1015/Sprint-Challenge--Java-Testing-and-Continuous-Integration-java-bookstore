@@ -5,6 +5,7 @@ import com.lambdaschool.starthere.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 
 @Service(value = "bookservice")
@@ -19,5 +20,27 @@ public class BookServiceImpl implements BookService
 		ArrayList<Book> list = new ArrayList<>();
 		bookrepos.findAll().iterator().forEachRemaining(list::add);
 		return list;
+	}
+
+	@Override
+	public Book update(Book book, long id)
+	{
+		Book currentBook = bookrepos.findById(id)
+				.orElseThrow(() -> new EntityNotFoundException(Long.toString(id)));
+
+		if (book.getTitle() != null)
+		{
+			currentBook.setTitle(book.getTitle());
+		}
+		if (book.getCopy() > 0)
+		{
+			currentBook.setCopy(book.getCopy());
+		}
+		if (book.getISBN() != null)
+		{
+			currentBook.setISBN(book.getISBN());
+		}
+
+		return bookrepos.save(currentBook);
 	}
 }
