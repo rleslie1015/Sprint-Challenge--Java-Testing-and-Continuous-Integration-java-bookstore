@@ -46,4 +46,12 @@ public class BookController
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
+	@DeleteMapping(value = "data/books/{id}", produces = {"application/json"})
+	public ResponseEntity<?> deleteBookFromAuth(
+			@PathVariable
+			long id)
+	{
+		bookservice.deleteBook(id);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
 }

@@ -49,4 +49,10 @@ public class BookServiceImpl implements BookService
 	{
 		bookrepos.assignBookAuthor(bookid, authid);
 	}
+
+	@Override
+	public void deleteBook(long id)
+	{
+		bookrepos.deleteBookFromAuthor(id);
+	}
 }
