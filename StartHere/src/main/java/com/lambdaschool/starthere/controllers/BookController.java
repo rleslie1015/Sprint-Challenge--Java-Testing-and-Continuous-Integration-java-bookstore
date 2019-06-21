@@ -5,6 +5,8 @@ import com.lambdaschool.starthere.models.ErrorDetail;
 import com.lambdaschool.starthere.services.BookService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -32,9 +34,13 @@ public class BookController
 							"Default sort order is ascending. " +
 							"Multiple sort criteria are supported.")})
 	@GetMapping(value = "/books", produces = {"application/json"})
-	public ResponseEntity<?> findAllBooks()
+	public ResponseEntity<?> findAllBooks(
+			@PageableDefault(
+					page = 0,
+					size = 3)
+					Pageable pageable)
 	{
-		ArrayList<Book> myBooks = bookservice.findAll();
+		ArrayList<Book> myBooks = bookservice.findAll(pageable);
 		return new ResponseEntity<>(myBooks, HttpStatus.OK);
 	}
 

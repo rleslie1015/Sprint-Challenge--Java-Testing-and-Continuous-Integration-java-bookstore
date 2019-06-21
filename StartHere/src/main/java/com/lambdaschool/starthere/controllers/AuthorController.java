@@ -6,6 +6,8 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -34,9 +36,12 @@ public class AuthorController
 							"Default sort order is ascending. " +
 							"Multiple sort criteria are supported.")})
 	@GetMapping(value = "/authors", produces = {"application/json"})
-	public ResponseEntity<?> listAllAuthors()
+	public ResponseEntity<?> listAllAuthors(
+			@PageableDefault(page = 0,
+							size = 3)
+					Pageable pageable)
 	{
-		ArrayList<Author> myAuthors = authorService.findall();
+		ArrayList<Author> myAuthors = authorService.findall(pageable);
 		return new ResponseEntity<>(myAuthors, HttpStatus.OK);
 	}
 }

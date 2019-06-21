@@ -3,6 +3,7 @@ package com.lambdaschool.starthere.services;
 import com.lambdaschool.starthere.models.Book;
 import com.lambdaschool.starthere.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -16,7 +17,7 @@ public class BookServiceImpl implements BookService
 
 
 	@Override
-	public ArrayList<Book> findAll()
+	public ArrayList<Book> findAll(Pageable pageable)
 	{
 		ArrayList<Book> list = new ArrayList<>();
 		bookrepos.findAll().iterator().forEachRemaining(list::add);
