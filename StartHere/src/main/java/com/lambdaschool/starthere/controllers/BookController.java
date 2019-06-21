@@ -7,6 +7,7 @@ import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServlet;
@@ -18,6 +19,8 @@ public class BookController
 {
 	@Autowired
 	private BookService bookservice;
+
+	@PreAuthorize("hasAuthority('ROLE_USER')")
 	@ApiOperation(value = "Returns all Books", response = Book.class, responseContainer = "List")
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "page", dataType = "integr", paramType = "query",
@@ -35,7 +38,7 @@ public class BookController
 		return new ResponseEntity<>(myBooks, HttpStatus.OK);
 	}
 
-
+	@PreAuthorize("hasAuthority('ROLE_USER')")
 	@ApiOperation(value = "Retrieves a book associated with the bookid.", response = Book.class)
 	@ApiResponses(value = {
 			@ApiResponse(code = 201, message = "Book Found", response = Book.class),
@@ -51,7 +54,7 @@ public class BookController
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-
+	@PreAuthorize("hasAuthority('ROLE_USER')")
 	@ApiOperation(value = " assigns a book already in the system to an author already in the system", response = void.class)
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Author Added to Book Successfully", response = void.class),
@@ -68,6 +71,7 @@ public class BookController
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
+	@PreAuthorize("hasAuthority('ROLE_USER')")
 	@ApiOperation(value = "Deletes an existing book.", response = void.class)
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Book deleted Successfully", response = void.class),
