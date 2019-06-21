@@ -51,7 +51,7 @@ public class BookController
 			@PathVariable
 			long id)
 	{
-		bookservice.deleteBook(id);
+		bookservice.delete(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }

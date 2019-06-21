@@ -14,6 +14,7 @@ public class BookServiceImpl implements BookService
 	@Autowired
 	BookRepository bookrepos;
 
+
 	@Override
 	public ArrayList<Book> findAll()
 	{
@@ -50,9 +51,18 @@ public class BookServiceImpl implements BookService
 		bookrepos.assignBookAuthor(bookid, authid);
 	}
 
+
+
 	@Override
-	public void deleteBook(long id)
+	public void delete(long id) throws EntityNotFoundException
 	{
+		if (bookrepos.findById(id).isPresent())
+		{
 		bookrepos.deleteBookFromAuthor(id);
+		bookrepos.deleteById(id);
+		} else
+		{
+			throw new EntityNotFoundException(Long.toString(id));
+		}
 	}
 }

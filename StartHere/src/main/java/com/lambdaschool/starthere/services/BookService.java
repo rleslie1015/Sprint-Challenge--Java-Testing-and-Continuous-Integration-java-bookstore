@@ -12,6 +12,8 @@ public interface BookService
 
 	void updateBookAuth(long bookid, long authid);
 
-	void deleteBook(long id);
+//	void deleteBook(long id);
+
+	void delete(long id);
 
 }
