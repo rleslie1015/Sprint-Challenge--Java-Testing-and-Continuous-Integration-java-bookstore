@@ -24,7 +24,7 @@ public class BookController
 		return new ResponseEntity<>(myBooks, HttpStatus.OK);
 	}
 
-	@PutMapping(value = "/books/{id}", produces = {"application/json"})
+	@PutMapping(value = "/data/books/{id}", produces = {"application/json"})
 	public ResponseEntity<?> updateBook(
 			@RequestBody
 				Book updatedBook,
@@ -34,4 +34,16 @@ public class BookController
 		bookservice.update(updatedBook, id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
+
+	@PostMapping(value = "/data/books/{bookid}/authors/{authid}",produces = {"application/json"})
+	public ResponseEntity<?> assignBookAuth(
+			@PathVariable
+			long bookid,
+			@PathVariable
+			long authid)
+	{
+		bookservice.updateBookAuth(bookid, authid);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+
 }

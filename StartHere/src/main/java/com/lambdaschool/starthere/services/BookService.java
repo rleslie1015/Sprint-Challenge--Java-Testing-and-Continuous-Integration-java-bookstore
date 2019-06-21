@@ -9,4 +9,7 @@ public interface BookService
 	ArrayList<Book> findAll();
 
 	Book update(Book book, long id);
+
+	void updateBookAuth(long bookid, long authid);
+
 }

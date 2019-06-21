@@ -43,4 +43,10 @@ public class BookServiceImpl implements BookService
 
 		return bookrepos.save(currentBook);
 	}
+
+	@Override
+	public void updateBookAuth(long bookid, long authid)
+	{
+		bookrepos.assignBookAuthor(bookid, authid);
+	}
 }
